@@ -67,7 +67,8 @@ function outputText(response: RawResponse) {
 }
 
 async function callGroq(action: AIAction, payload: unknown) {
-  const apiKey = process.env.GROQ_API_KEY;
+  // .trim() removes stray spaces/newlines that often sneak in when pasting the key into Vercel
+  const apiKey = process.env.GROQ_API_KEY?.trim();
   if (!apiKey) throw new Error("AI_NOT_CONFIGURED");
   const isImage = action === "analyzeWasteImage";
   const body = isImage
